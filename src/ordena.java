@@ -47,9 +47,10 @@ public class ordena {
 		geraLista(v, tipo);
 		int copia[] = v.clone();
 
-		System.out.println("Inserçao: (" + n + " Elementos" + modo + " )");
+		
 		long tempo = System.nanoTime();
 		if (n <= 100) {
+			System.out.println("Inserçao: (" + n + " Elementos" + modo + " )");
 			escrita.println("Inserção: ");
 			escrita.print("Antes: ");
 			for (int i = 0; i < copia.length; i++) {
@@ -69,7 +70,7 @@ public class ordena {
 			escrita.println("");
 			System.out.println(" ");
 		} else if (n < 50000) {
-
+			System.out.println("Inserçao: (" + n + " Elementos" + modo + " )");
 			insercao(copia);
 			System.out.println("Tempo: " + (System.nanoTime() - tempo)
 					/ 1000000.0 + " ms");
@@ -103,13 +104,14 @@ public class ordena {
 			mergeSort(copia, 0, n - 1);
 			System.out.print("Comparacoes: " + compMerge + " Trocas: "
 					+ trocaMerge);
-			System.out.println("Tempo: " + (System.nanoTime() - tempo)
+			System.out.println(" Tempo: " + (System.nanoTime() - tempo)
 					/ 1000000.0 + " ms");
 		}
 		System.out.println("");
 		copia = v.clone();
-		System.out.println("Selecao: (" + n + " Elementos" + modo + " )");
+		
 		if (n <= 100) {
+			System.out.println("Selecao: (" + n + " Elementos" + modo + " )");
 			escrita.println("Selecao: ");
 			escrita.print("Antes: ");
 			for (int i = 0; i < copia.length; i++) {
@@ -127,6 +129,7 @@ public class ordena {
 			}
 			escrita.println("");
 		} else if (n < 50000) {
+			System.out.println("Selecao: (" + n + " Elementos" + modo + " )");
 			tempo = System.nanoTime();
 			SelectionSort(copia);
 			System.out.println("Tempo: " + (System.nanoTime() - tempo)
@@ -226,8 +229,9 @@ public class ordena {
 		}
 		System.out.println("");
 		copia = v.clone();
-		System.out.println("CocktailSort: (" + n + " Elementos" + modo + " )");
+		
 		if (n <= 100) {
+			System.out.println("CocktailSort: (" + n + " Elementos" + modo + " )");
 			escrita.println("");
 			escrita.println("CocktailSort: ");
 			escrita.print("Antes: ");
@@ -245,7 +249,8 @@ public class ordena {
 				escrita.print(copia[i] + " ");
 			}
 			escrita.println("");
-		} else {
+		} else if (n<50000){
+			System.out.println("CocktailSort: (" + n + " Elementos" + modo + " )");
 			tempo = System.nanoTime();
 			CocktailSort(copia);
 			System.out.println(" Tempo: " + (System.nanoTime() - tempo)
