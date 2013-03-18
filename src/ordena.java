@@ -1,10 +1,23 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Random;
 
+/**
+ * Algoritmo para ordenação de vetores
+ * 
+ * 
+ * @author's André Ravagnani, Thiago César e João Paulo
+ * 
+ */
+
 public class ordena {
+	static int compMerge = 0;
+	static int trocaMerge = 0;
+	static int compQuick = 0;
+	static int trocaQuick = 0;
+	static int compQuickProb = 0;
+	static int trocaQuickProb = 0;
 
 	public static void main(String args[]) throws IOException {
 
@@ -73,7 +86,9 @@ public class ordena {
 			escrita.println("");
 			tempo = System.nanoTime();
 			mergeSort(copia, 0, n - 1);
-			System.out.println("Tempo: " + (System.nanoTime() - tempo)
+			System.out.print("Comparacoes: " + compMerge + " Trocas: "
+					+ trocaMerge);
+			System.out.println(" Tempo: " + (System.nanoTime() - tempo)
 					/ 1000000.0 + " ms");
 			escrita.print("Depois: ");
 
@@ -86,6 +101,8 @@ public class ordena {
 		} else {
 			tempo = System.nanoTime();
 			mergeSort(copia, 0, n - 1);
+			System.out.print("Comparacoes: " + compMerge + " Trocas: "
+					+ trocaMerge);
 			System.out.println("Tempo: " + (System.nanoTime() - tempo)
 					/ 1000000.0 + " ms");
 		}
@@ -139,7 +156,7 @@ public class ordena {
 			escrita.println("");
 		} else {
 			tempo = System.nanoTime();
-			SelectionSort(copia);
+			ShellSort(copia);
 			System.out.println(" Tempo: " + (System.nanoTime() - tempo)
 					/ 1000000.0 + " ms");
 		}
@@ -156,6 +173,8 @@ public class ordena {
 			escrita.println("");
 			tempo = System.nanoTime();
 			QuickSort(copia, 0, copia.length - 1);
+			System.out.print("Comparacoes: " + compQuick + " Trocas: "
+					+ trocaQuick);
 			System.out.println(" Tempo: " + (System.nanoTime() - tempo)
 					/ 1000000.0 + " ms");
 			escrita.print("Depois: ");
@@ -167,6 +186,8 @@ public class ordena {
 		} else {
 			tempo = System.nanoTime();
 			QuickSort(copia, 0, copia.length - 1);
+			System.out.print("Comparacoes: " + compQuick + " Trocas: "
+					+ trocaQuick);
 			System.out.println(" Tempo: " + (System.nanoTime() - tempo)
 					/ 1000000.0 + " ms");
 		}
@@ -185,6 +206,8 @@ public class ordena {
 			escrita.println("");
 			tempo = System.nanoTime();
 			QuickSortProbabilistic(copia, 0, copia.length - 1);
+			System.out.print("Comparacoes: " + compQuickProb + " Trocas: "
+					+ trocaQuickProb);
 			System.out.println(" Tempo: " + (System.nanoTime() - tempo)
 					/ 1000000.0 + " ms");
 			escrita.print("Depois: ");
@@ -196,6 +219,8 @@ public class ordena {
 		} else {
 			tempo = System.nanoTime();
 			QuickSortProbabilistic(copia, 0, copia.length - 1);
+			System.out.print("Comparacoes: " + compQuickProb + " Trocas: "
+					+ trocaQuickProb);
 			System.out.println(" Tempo: " + (System.nanoTime() - tempo)
 					/ 1000000.0 + " ms");
 		}
@@ -312,11 +337,19 @@ public class ordena {
 			if (vetor[i] <= vetor[j]) {
 				vetorAux[k] = vetor[i];
 				i++;
+				compMerge++;
+				trocaMerge++;
 			} else {
 				vetorAux[k] = vetor[j];
 				j++;
+				trocaMerge++;
+
+				trocaMerge++;
 			}
 			k++;
+			trocaMerge++;
+			compMerge++;
+
 		}
 		if (i <= meio) {
 			for (j = meio; j >= i; j--)
@@ -324,6 +357,8 @@ public class ordena {
 		}
 		for (i = 0; i < k; i++)
 			vetor[inicio + i] = vetorAux[i];
+		trocaMerge++;
+		compMerge++;
 	}
 
 	static void SelectionSort(int[] v) {
@@ -379,10 +414,16 @@ public class ordena {
 
 		if (ini < fim) {
 			meio = partition(v, ini, fim);
+			compQuick++;
+
 			if (ini < meio - 1) {
+				compQuick++;
+
 				QuickSort(v, ini, meio);
 			}
 			if (meio + 1 < fim) {
+				compQuick++;
+
 				QuickSort(v, meio + 1, fim);
 			}
 		}
@@ -398,9 +439,13 @@ public class ordena {
 				v[topo] = v[i];
 				v[i] = v[topo + 1];
 				topo++;
+
+				compQuick++;
+
 			}
 		}
 		v[topo] = pivo;
+		trocaQuick++;
 		return topo;
 	}
 
@@ -409,10 +454,13 @@ public class ordena {
 
 		if (ini < fim) {
 			meio = partition2(v, ini, fim);
+			compQuickProb++;
 			if (ini < meio - 1) {
+				compQuickProb++;
 				QuickSort(v, ini, meio);
 			}
 			if (meio + 1 < fim) {
+				compQuickProb++;
 				QuickSort(v, meio + 1, fim);
 			}
 		}
@@ -425,16 +473,20 @@ public class ordena {
 		}
 		pivo = media / v.length;
 		topo = ini;
-
+		
 		for (i = ini + 1; i <= fim; i++) {
 			if (v[i] < pivo) {
 				v[topo] = v[i];
 				v[i] = v[topo + 1];
 				topo++;
+				compQuickProb++;
+				trocaQuickProb++;
 			}
 		}
 		v[topo] = pivo;
+		compQuickProb++;
 		return topo;
+
 	}
 
 	static void CocktailSort(int[] vetor) {
