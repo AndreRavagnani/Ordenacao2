@@ -106,7 +106,7 @@ public class ordena {
 			System.out.println("Tempo: " + (System.nanoTime() - tempo)
 					/ 1000000.0 + " ms");
 		}
-
+		System.out.println("");
 		copia = v.clone();
 		System.out.println("Selecao: (" + n + " Elementos" + modo + " )");
 		if (n <= 100) {
