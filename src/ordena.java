@@ -71,6 +71,7 @@ public class ordena {
 			System.out.println(" ");
 		} else if (n < 50000) {
 			System.out.println("Inserçao: (" + n + " Elementos" + modo + " )");
+			tempo = System.nanoTime();
 			insercao(copia);
 			System.out.println("Tempo: " + (System.nanoTime() - tempo)
 					/ 1000000.0 + " ms");
